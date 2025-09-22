@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clientSocket.hpp                                   :+:      :+:    :+:   */
+/*   ISocket.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 17:16:17 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:20:39 by victorviter      ###   ########.fr       */
+/*   Created: 2025/09/22 18:09:59 by victorviter       #+#    #+#             */
+/*   Updated: 2025/09/22 18:22:37 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <cstdio>
-#include <unistd.h>
+typedef enum e_socketTypes
+{
+	CLIENT,
+	SERVER
+}	t_socketType;
 
-#include "ISocket.hpp"
-
-class clientSocket : public ISocket {
+class ISocket {
 	public :
-	// CONSTRUCTORS
-		clientSocket();
-		clientSocket(const clientSocket &other);
-		clientSocket &operator=(const clientSocket &other);
 	//DESTUCTORS
-		~clientSocket();
+		virtual ~ISocket();
 	//GETTERS
-		int					getFd();
+		virtual t_socketType	getType() const = 0;
 	//SETTERS
 	//MEMBER FUNCTIONS
+		virtual int	getFd() const = 0;
 	private :
-		int					_client_fd;
-		struct sockaddr_in	_client_addr;
-		socklen_t			_client_len;
+		t_socketType		_socket_type;
 };

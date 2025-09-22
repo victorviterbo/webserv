@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:07 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 17:14:17 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 17:28:31 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,13 @@ int		serverPoll::pollWait(int TimeOut)
 	}
 }
 
-int		serverPoll::pollWatchRevent(int eventType, int fd)
+int		serverPoll::pollWatchReventTyped(int eventType)
 {
-	if (fd != ALL_FDS && fd >= 0)
-	{
-        if (eventType != DEFAULT_EVENT && (this->_poll_fds[fd].revents & eventType))
-		{
-			
-		}
-	}
 	for (unsigned int i = 0; i < this->_poll_count; ++i)
 	{
-        if (eventType != DEFAULT_EVENT && (this->_poll_fds[i].revents & eventType))
+        if (this->_poll_fds[i].revents & eventType)
 		{
-			
+			if (i == 0)
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 15:55:44 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 18:19:53 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 //including initialisation, setting up the addresses of the client and server,
 //accepting, listening and ending connections
 
-class serverSocket {
+#include "ISocket.hpp"
+
+class serverSocket : public ISocket {
 	public :
 	// CONSTRUCTORS
 		serverSocket();
@@ -48,6 +50,4 @@ class serverSocket {
 		int							_type;				//communication semantics - SOCK_...
 		int							_protocol;			//specific protocol - 0 for standard in the domain
 		struct sockaddr_in			_server_addr;
-		struct sockaddr_in			_client_addr;
-		socklen_t					_client_len;
 };

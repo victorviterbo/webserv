@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 17:03:07 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 18:39:57 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define NO_TIMEOUT -1
 
 #include "serverSocket.hpp"
+#include "clientSocket.hpp"
 
 #include <vector>
 #include <unordered_map>
@@ -42,9 +43,10 @@ class serverPoll : public serverSocket {
 	//MEMBER FUNCTIONS
 		void	pollAdd(serverSocket &sock, int event);
 		int		pollWait(int TimeOut);
-		int		pollWatchRevent(int eventType, int fd);
+		int		pollWatchRevent();
+		int		pollWatchReventTyped(int eventType);
 	private :
 		static const unsigned int				_poll_count = 10000;	//number of fds simultaneously handled by poll (different from backlog which is number of connections pending 'accept')
 		std::vector<struct pollfd>				_poll_fds;				//vector of fds (will be of len _poll_count)
-		std::unordered_map<int, serverSocket>	_socket_map;			//the int is the actual poll fd and the map connects it to the serverSocket object
+		std::unordered_map<int, ISocket>		_socket_map;			//the int is the actual poll fd and the map connects it to the serverSocket object
 };
