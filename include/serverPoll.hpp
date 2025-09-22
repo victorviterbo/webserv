@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:39:57 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 19:03:37 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define ALL_FDS -1
 #define DEFAULT_EVENT -1
 #define NO_TIMEOUT -1
+#define SERVER_IDX 0
 
 #include "serverSocket.hpp"
 #include "clientSocket.hpp"
@@ -41,12 +42,21 @@ class serverPoll : public serverSocket {
 	//GETTERS
 	//SETTERS
 	//MEMBER FUNCTIONS
-		void	pollAdd(serverSocket &sock, int event);
+		void	pollAdd(int fd, int event);
 		int		pollWait(int TimeOut);
 		int		pollWatchRevent();
-		int		pollWatchReventTyped(int eventType);
 	private :
 		static const unsigned int				_poll_count = 10000;	//number of fds simultaneously handled by poll (different from backlog which is number of connections pending 'accept')
 		std::vector<struct pollfd>				_poll_fds;				//vector of fds (will be of len _poll_count)
-		std::unordered_map<int, ISocket>		_socket_map;			//the int is the actual poll fd and the map connects it to the serverSocket object
 };
+
+/*
+Echo message snippet
+ssize_t bytes_read;
+		while ((bytes_read = recv(client_fd, buffer, sizeof(buffer), 0)) > 0) {
+			if (send(client_fd, buffer, bytes_read, 0) == -1) {
+				std::cerr << "Send failed\n";
+				break;
+			}
+		}
+*/

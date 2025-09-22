@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:23 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 17:23:02 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 18:56:23 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,12 @@ clientSocket &clientSocket::operator=(const clientSocket &other)
 
 clientSocket::~clientSocket() {}
 
+struct sockaddr_in	&clientSocket::getClientAddr()
+{
+	return (this->_client_addr);
+}
+
+socklen_t			&clientSocket::getClientLen()
+{
+	return (this->_client_len);
+}

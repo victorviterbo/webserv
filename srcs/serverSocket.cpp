@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:44 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 17:17:23 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 19:00:23 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ serverSocket::serverSocket(const serverSocket &other)
 	this->_type = other._type;
 	this->_protocol = other._protocol;
 	this->_server_addr = other._server_addr;
-	this->_client_addr = other._client_addr;
-	this->_client_len = other._client_len;
 }
 
 serverSocket &serverSocket::operator=(const serverSocket &other)
@@ -32,8 +30,6 @@ serverSocket &serverSocket::operator=(const serverSocket &other)
 	this->_type = other._type;
 	this->_protocol = other._protocol;
 	this->_server_addr = other._server_addr;
-	this->_client_addr = other._client_addr;
-	this->_client_len = other._client_len;
 	return (*this);
 }
 
@@ -46,16 +42,6 @@ serverSocket::~serverSocket()
 int	serverSocket::getFd()
 {
 	return (this->_server_fd);
-}
-
-struct sockaddr_in	&serverSocket::getClientAddr()
-{
-	return (this->_client_addr);
-}
-
-socklen_t			&serverSocket::getClientLen()
-{
-	return (this->_client_len);
 }
 
 int	serverSocket::socketInit(int domain, int type, int protocol)
@@ -73,8 +59,6 @@ int		serverSocket::socketBind(int portNumber)
 {
 	int	success;
 
-	(void)this->_client_addr;
-	(void)this->_client_len;
 	std::memset(&this->_server_addr, 0, sizeof(this->_server_addr));
 	this->_server_addr.sin_family = this->_domain;
 	this->_server_addr.sin_addr.s_addr = INADDR_ANY; //Bind to all available interfaces

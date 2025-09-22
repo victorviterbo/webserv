@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:19:53 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 19:02:11 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@
 //including initialisation, setting up the addresses of the client and server,
 //accepting, listening and ending connections
 
-#include "ISocket.hpp"
-
-class serverSocket : public ISocket {
+class serverSocket {
 	public :
 	// CONSTRUCTORS
 		serverSocket();
@@ -36,13 +34,11 @@ class serverSocket : public ISocket {
 		~serverSocket();
 	//GETTERS
 		int					getFd();
-		struct sockaddr_in	&getClientAddr();
-		socklen_t			&getClientLen();
 	//SETTERS
 	//MEMBER FUNCTIONS
 		int					socketInit(int domain, int type, int protocol);
 		int					socketBind(int portNumber);
-		//bool				setSockOpt();
+		//bool				setSockOpt(); //TODO set options for poll (see exemple below)
 	private :
 		static const unsigned int	_backlog = 100;		//number of connections pending 'accept' that can be queued
    		int							_server_fd;			//server file descriptor
@@ -51,3 +47,13 @@ class serverSocket : public ISocket {
 		int							_protocol;			//specific protocol - 0 for standard in the domain
 		struct sockaddr_in			_server_addr;
 };
+
+/*
+// Set socket options to reuse address
+    int opt = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) {
+        std::cerr << "Failed to set socket options: " << strerror(errno) << std::endl;
+        close(server_fd);
+        return EXIT_FAILURE;
+    }
+*/

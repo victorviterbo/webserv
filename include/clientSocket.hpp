@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:17 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:20:39 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 18:56:42 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@
 #include <cstdio>
 #include <unistd.h>
 
-#include "ISocket.hpp"
-
-class clientSocket : public ISocket {
+class clientSocket {
 	public :
 	// CONSTRUCTORS
 		clientSocket();
@@ -32,6 +30,8 @@ class clientSocket : public ISocket {
 		~clientSocket();
 	//GETTERS
 		int					getFd();
+		struct sockaddr_in	&getClientAddr();
+		socklen_t			&getClientLen();
 	//SETTERS
 	//MEMBER FUNCTIONS
 	private :

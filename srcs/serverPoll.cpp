@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:07 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 17:28:31 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 18:56:02 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,22 @@ serverPoll::serverPoll()
 	this->_poll_fds.resize(this->_poll_count);
 }
 
-serverPoll::serverPoll(const serverPoll &other) : _poll_fds(other._poll_fds), _socket_map(other._socket_map) {}
+serverPoll::serverPoll(const serverPoll &other) : _poll_fds(other._poll_fds) {}
 
 serverPoll &serverPoll::operator=(const serverPoll &other)
 {
 	if (this != &other)
-	{
 		this->_poll_fds = other._poll_fds;
-		this->_socket_map = other._socket_map;
-	}
 	return (*this);
 }
 
 serverPoll::~serverPoll() {}
 
-void	serverPoll::pollAdd(serverSocket &sock, int event)
+void	serverPoll::pollAdd(int fd, int event)
 {
     struct pollfd new_poll_fd;
-	new_poll_fd.fd = sock.getFd();
+	new_poll_fd.fd = fd;
 	new_poll_fd.events = event;
-	this->_socket_map[new_poll_fd.fd] = sock;
 	for (unsigned int i = 0; i < this->_poll_count; ++i)
 	{
 		if (!this->_poll_fds[i].fd)
@@ -55,13 +51,14 @@ int		serverPoll::pollWait(int TimeOut)
 	}
 }
 
-int		serverPoll::pollWatchReventTyped(int eventType)
+int		serverPoll::pollWatchRevent()
 {
 	for (unsigned int i = 0; i < this->_poll_count; ++i)
 	{
-        if (this->_poll_fds[i].revents & eventType)
+        if (this->_poll_fds[i].revents & POLLIN) //TODO implement Revent check for errors before check for input
 		{
-			if (i == 0)
+			if (i == SERVER_IDX) //TODO check if this is not gonna break ? better way to do this ?
+				
 		}
 	}
 }
