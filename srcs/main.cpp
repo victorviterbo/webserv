@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:44:51 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 13:52:54 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 16:56:39 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,17 @@ int main()
 	char 			buffer[1024];
 
 	if (s.socketInit(AF_INET, SOCK_STREAM, 0) == -1)
-	{
-		std::cerr << "Socket init failed" << std::endl;
 		return (1);
-	}
 	if (s.socketBind(12345) == -1)
-	{
-		std::cerr << "Socket bind failed" << std::endl;
 		return (1);
-	}
-	if (listen(s.getServerFd(), backlog) == -1)
+	if (listen(s.getFd(), backlog) == -1)
 	{
 		std::cerr << "Socket listen failed" << std::endl;
 		return (1);
 	}
 	while (true)
 	{
-        client_fd = accept(s.getServerFd(), (struct sockaddr*)&s.getClientAddr(), &s.getClientLen());
+        client_fd = accept(s.getFd(), (struct sockaddr*)&s.getClientAddr(), &s.getClientLen());
         if (client_fd == -1) {
             std::cerr << "Accept failed\n";
             continue;

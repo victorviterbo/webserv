@@ -6,17 +6,17 @@
 #    By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/10 14:31:08 by victorviter       #+#    #+#              #
-#    Updated: 2025/09/21 13:58:50 by victorviter      ###   ########.fr        #
+#    Updated: 2025/09/22 15:25:39 by victorviter      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SDIR		=	srcs/
-IDIR		=	includes/
+IDIR		=	include/
 LDIR		=	lib/
 ODIR		=	objs/
 
 SRC			=	main.cpp
-SRC			+=	serverSocket.cpp
+SRC			+=	serverSocket.cpp serverPoll.cpp
 
 OBJS		=	$(addprefix $(ODIR), $(SRC:.cpp=.o))
 SRCS		=	$(addprefix $(SDIR), $(SRC))

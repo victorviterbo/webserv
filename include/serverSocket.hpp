@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   serverSocket.hpp                                   :+:      :+:    :+:   */
+/*   ServerSocket.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 13:50:01 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/22 15:55:44 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 #include <cstdio>
 #include <unistd.h>
 
+//serverSocket contains all the variables and functions that pertains to socket handling
+//including initialisation, setting up the addresses of the client and server,
+//accepting, listening and ending connections
+
 class serverSocket {
 	public :
 	// CONSTRUCTORS
 		serverSocket();
-		serverSocket(serverSocket &other);
-		serverSocket &operator=(serverSocket &other);
+		serverSocket(const serverSocket &other);
+		serverSocket &operator=(const serverSocket &other);
 	//DESTUCTORS
 		~serverSocket();
 	//GETTERS
-		int					getServerFd();
+		int					getFd();
 		struct sockaddr_in	&getClientAddr();
 		socklen_t			&getClientLen();
 	//SETTERS
@@ -38,11 +42,12 @@ class serverSocket {
 		int					socketBind(int portNumber);
 		//bool				setSockOpt();
 	private :
-   		int					_server_fd;		//server file descriptor
-		int					_domain;		//protocol family - AF_...
-		int					_type;			//communication semantics - SOCK_...
-		int					_protocol;		//specific protocol - 0 for standard in the domain
-		struct sockaddr_in	_server_addr;
-		struct sockaddr_in	_client_addr;
-		socklen_t			_client_len;
+		static const unsigned int	_backlog = 100;		//number of connections pending 'accept' that can be queued
+   		int							_server_fd;			//server file descriptor
+		int							_domain;			//protocol family - AF_...
+		int							_type;				//communication semantics - SOCK_...
+		int							_protocol;			//specific protocol - 0 for standard in the domain
+		struct sockaddr_in			_server_addr;
+		struct sockaddr_in			_client_addr;
+		socklen_t					_client_len;
 };
