@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:23 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 14:47:04 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 16:25:53 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    clientSocket::setFd(int fd)
 int	clientSocket::handleEvent(short revent)
 {
     /* For now it just echoes back the message for testing purposes */
-    char 	buffer[1024];
+    char 	buffer[10];
     ssize_t bytes_read;
 
     std::cout << "clientSocket is handling the event on fd " << this->_client_fd << std::endl;
@@ -66,6 +66,8 @@ int	clientSocket::handleEvent(short revent)
             std::cerr << "Send failed\n";
             return (-1);
         }
+        else
+            return (0);
     }
     (void)revent;
     return (0);

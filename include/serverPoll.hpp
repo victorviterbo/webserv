@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 14:19:43 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 15:22:54 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class serverPoll : public serverSocket {
 		void			setServSocket(serverSocket *server);
 	//MEMBER FUNCTIONS
 		void	pollAdd(int fd, int event, clientSocket *client);
+		int		pollRemove(int indx);
 		int		pollWait(int TimeOut);
 		int		pollWatchRevent();
 	private :

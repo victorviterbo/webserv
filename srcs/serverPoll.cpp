@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:07 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 15:15:02 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 16:20:41 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ serverPoll::~serverPoll()
 void	serverPoll::setServSocket(serverSocket *server)
 {
 	this->_server = server;								//keep track of server socket
-	this->pollAdd(server->getFd(), POLLIN, NULL);	//start monitoring the server socket
+	this->pollAdd(server->getFd(), POLLIN, NULL);		//start monitoring the server socket
 }
 
 serverSocket	*serverPoll::getServSocket()
@@ -69,6 +69,17 @@ void	serverPoll::pollAdd(int fd, int event, clientSocket *client)
 	}
 }
 
+int		serverPoll::pollRemove(int indx)
+{
+	int	success;
+
+	success = close(this->_poll_fds[indx].fd);
+	delete this->_client_map[this->_poll_fds[indx].fd];
+	success += (this->_client_map.erase(this->_poll_fds[indx].fd) != 1);
+	std::memset(&this->_poll_fds[indx], 0, sizeof(pollfd));
+	return (success);
+}
+
 int		serverPoll::pollWait(int TimeOut)
 {
 	int	poll_count;
@@ -84,9 +95,30 @@ int		serverPoll::pollWait(int TimeOut)
 
 int		serverPoll::pollWatchRevent()
 {
+	static int iterations = 100;
+	this->pollWait(NO_TIMEOUT);
+	iterations--;
+	if (iterations == 0)
+	{
+		std::cout << "iterated 100 times..." << std::endl;
+		exit (1);
+	}
 	for (unsigned int i = 0; i < this->_poll_count; ++i)
 	{
-        if (this->_poll_fds[i].revents) //TODO implement Revent check for errors before check for input
+		if (this->_poll_fds[i].revents & POLLHUP || this->_poll_fds[i].revents & POLLERR)
+		{
+			if (this->_poll_fds[i].fd == this->_server->getFd())
+			{
+				std::cerr << "Server ended connection abrubtly, exiting..." << std::endl;
+				continue ;
+			}
+			else
+			{
+				std::cout << "Closing connection with client index " << i << std::endl;
+				this->pollRemove(i);
+			}
+		}
+        else if (this->_poll_fds[i].revents & POLLIN)
 		{
 			std::cout << "Poll detected activity on Fd " << this->_poll_fds[i].fd << std::endl;
 			if (this->_poll_fds[i].fd == this->_server->getFd())
@@ -94,13 +126,18 @@ int		serverPoll::pollWatchRevent()
 				std::cout << "New connection attempts detected" << std::endl;
 				clientSocket *new_client;
 				new_client = this->_server->socketAcceptClient();
-				this->pollAdd(new_client->getFd(), POLLIN | POLLOUT, new_client);
+				if (!new_client)
+				{
+					std::cerr << "Failed to accept new client" << std::endl;
+					continue ;
+				}
+				this->pollAdd(new_client->getFd(), POLLIN, new_client);
 			}
 			else
 			{
 				std::cout << "Handling event for client with index " << i << std::endl;
 				std::cout << "Address of client socket : " << this->_client_map[this->_poll_fds[i].fd] << std::endl;
-				return (this->_client_map[this->_poll_fds[i].fd]->handleEvent(this->_poll_fds[i].revents));
+				this->_client_map[this->_poll_fds[i].fd]->handleEvent(this->_poll_fds[i].revents);
 			}
 		}
 		/*else

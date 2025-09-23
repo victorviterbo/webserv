@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:44:51 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 14:31:38 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 16:26:20 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main()
 
 	if (servSocket.socketInit(AF_INET, SOCK_STREAM, 0) == -1)
 		return (1);
-	if (servSocket.socketBind(12345) == -1)
+	if (servSocket.socketBind(12344) == -1)
 		return (1);
 	if (listen(servSocket.getFd(), backlog) == -1) //TODO make this a serverSocket member function
 	{
@@ -32,10 +32,8 @@ int main()
 	pollServer.setServSocket(&servSocket); //Start monitoring the server socket as an input source
 	while (true)
 	{
-		if (pollServer.pollWait(NO_TIMEOUT) == -1)
-			return (-1); //TODO do a clean exit, probably will see that at the end when we know what need to be closes/cleaned
 		if (pollServer.pollWatchRevent() == -1)
-			return (-1);
+			return (-1); //TODO do a clean exit, probably will see that at the end when we know what need to be closes/cleaned
 	}
 	return (0);
 }

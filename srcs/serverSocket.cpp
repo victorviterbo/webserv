@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:44 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 14:45:14 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 16:18:19 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ clientSocket	*serverSocket::socketAcceptClient()
 {
 	clientSocket *new_client = new clientSocket();
 
+	std::cout << "Waiting on new client" << std::endl;
 	new_client->setFd(accept(this->getFd(), (struct sockaddr*)&new_client->getClientAddr(),\
 		&new_client->getClientLen()));
 	if (new_client->getFd() == -1)
