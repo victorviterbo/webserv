@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:17 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:56:42 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 14:26:34 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ class clientSocket {
 		struct sockaddr_in	&getClientAddr();
 		socklen_t			&getClientLen();
 	//SETTERS
+		void				setFd(int fd);
 	//MEMBER FUNCTIONS
+		int	handleEvent(short revent);
 	private :
 		int					_client_fd;
 		struct sockaddr_in	_client_addr;

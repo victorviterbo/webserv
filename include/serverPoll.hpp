@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 19:03:37 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 14:19:43 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 #include "clientSocket.hpp"
 
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <poll.h>
 
+class clientSocket;
+class serverSocket;
 
 //serverPoll contains all the variables and function that pertains to the poll
 //function which is used to monitor fd activity and availability for I/O operations
@@ -40,23 +42,16 @@ class serverPoll : public serverSocket {
 	//DESTUCTORS
 		~serverPoll();
 	//GETTERS
+		serverSocket	*getServSocket();
 	//SETTERS
+		void			setServSocket(serverSocket *server);
 	//MEMBER FUNCTIONS
-		void	pollAdd(int fd, int event);
+		void	pollAdd(int fd, int event, clientSocket *client);
 		int		pollWait(int TimeOut);
 		int		pollWatchRevent();
 	private :
-		static const unsigned int				_poll_count = 10000;	//number of fds simultaneously handled by poll (different from backlog which is number of connections pending 'accept')
-		std::vector<struct pollfd>				_poll_fds;				//vector of fds (will be of len _poll_count)
+		static const unsigned int			_poll_count = 10000;	//number of fds simultaneously handled by poll (different from backlog which is number of connections pending 'accept')
+		std::vector<struct pollfd>			_poll_fds;				//vector of fds (will be of len _poll_count)
+		serverSocket						*_server;
+		std::map<int, clientSocket *>		_client_map;
 };
-
-/*
-Echo message snippet
-ssize_t bytes_read;
-		while ((bytes_read = recv(client_fd, buffer, sizeof(buffer), 0)) > 0) {
-			if (send(client_fd, buffer, bytes_read, 0) == -1) {
-				std::cerr << "Send failed\n";
-				break;
-			}
-		}
-*/

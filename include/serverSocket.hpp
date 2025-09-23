@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 19:02:11 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 14:26:58 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <iostream>
 #include <cstdio>
 #include <unistd.h>
+
+#include "clientSocket.hpp"
 
 //serverSocket contains all the variables and functions that pertains to socket handling
 //including initialisation, setting up the addresses of the client and server,
@@ -38,6 +40,7 @@ class serverSocket {
 	//MEMBER FUNCTIONS
 		int					socketInit(int domain, int type, int protocol);
 		int					socketBind(int portNumber);
+		clientSocket		*socketAcceptClient();
 		//bool				setSockOpt(); //TODO set options for poll (see exemple below)
 	private :
 		static const unsigned int	_backlog = 100;		//number of connections pending 'accept' that can be queued

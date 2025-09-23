@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:44 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 19:00:23 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 14:45:14 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,19 @@ int		serverSocket::socketBind(int portNumber)
 	this->_server_addr.sin_port = htons(portNumber); //port # above 1024 are not priviledged
 	success = ::bind(this->_server_fd, (struct sockaddr*)&this->_server_addr, sizeof(this->_server_addr));
 	if (success == -1)
-		std::cerr << "Socket bind failed" << std::endl;
+		std::cerr << "Socket bind failed: " << strerror(errno) << std::endl;
+	return (success);
+}
+
+clientSocket	*serverSocket::socketAcceptClient()
+{
+	clientSocket *new_client = new clientSocket();
+
+	new_client->setFd(accept(this->getFd(), (struct sockaddr*)&new_client->getClientAddr(),\
+		&new_client->getClientLen()));
+	if (new_client->getFd() == -1)
+		std::cerr << "Accept failed: " << strerror(errno) << std::endl;
+	else
+		std::cout << "New client accepted" << std::endl;
+	return (new_client);
 }

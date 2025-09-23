@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:23 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/22 18:56:23 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 14:47:04 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ clientSocket::clientSocket(const clientSocket &other) : _client_addr(other._clie
 
 clientSocket &clientSocket::operator=(const clientSocket &other)
 {
-    this->_client_addr = other._client_addr;
-    this->_client_len = other._client_len;
+    if (this != &other)
+    {
+        this->_client_addr = other._client_addr;
+        this->_client_len = other._client_len;
+    }
+    return (*this);
 }
 
 clientSocket::~clientSocket() {}
@@ -32,7 +36,37 @@ struct sockaddr_in	&clientSocket::getClientAddr()
 	return (this->_client_addr);
 }
 
-socklen_t			&clientSocket::getClientLen()
+socklen_t   &clientSocket::getClientLen()
 {
 	return (this->_client_len);
+}
+
+int     clientSocket::getFd()
+{
+    return (this->_client_fd);
+}
+
+void    clientSocket::setFd(int fd)
+{
+    this->_client_fd = fd;
+}
+
+int	clientSocket::handleEvent(short revent)
+{
+    /* For now it just echoes back the message for testing purposes */
+    char 	buffer[1024];
+    ssize_t bytes_read;
+
+    std::cout << "clientSocket is handling the event on fd " << this->_client_fd << std::endl;
+    while ((bytes_read = recv(this->_client_fd, buffer, sizeof(buffer), 0)) > 0)
+    {
+        std::cout << "Reading input" << std::endl;
+        if (send(this->_client_fd, buffer, bytes_read, 0) == -1)
+        {
+            std::cerr << "Send failed\n";
+            return (-1);
+        }
+    }
+    (void)revent;
+    return (0);
 }
