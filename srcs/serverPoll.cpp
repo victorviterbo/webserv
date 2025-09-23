@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:07 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 15:01:05 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/23 15:15:02 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void	serverPoll::pollAdd(int fd, int event, clientSocket *client)
 		{
 			this->_poll_fds[i] = new_poll_fd;
 			std::cout << "Added fd " << new_poll_fd.fd << " to the poll watchlist" << std::endl;
-			return ;
+			break ;
 		}
 	}
 	if (client)
+	{
+		std::cout << "Adding client to map" << std::endl;
 		this->_client_map[new_poll_fd.fd] = client;
+	}
 }
 
 int		serverPoll::pollWait(int TimeOut)
@@ -95,8 +98,8 @@ int		serverPoll::pollWatchRevent()
 			}
 			else
 			{
-				std::cout << "Handling event ..." << std::endl;
-				std::cout << "Address of client socket : " << this->_client_map[this->_poll_fds[i].fd];
+				std::cout << "Handling event for client with index " << i << std::endl;
+				std::cout << "Address of client socket : " << this->_client_map[this->_poll_fds[i].fd] << std::endl;
 				return (this->_client_map[this->_poll_fds[i].fd]->handleEvent(this->_poll_fds[i].revents));
 			}
 		}
