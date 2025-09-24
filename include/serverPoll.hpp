@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serverPoll.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
+/*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 15:22:54 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/24 13:39:56 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class serverSocket;
 //first element of vector will always be server fd which will not change
 //following elements are clients fds that are dynamically created and destroyed
 
-class serverPoll : public serverSocket {
+class serverPoll {
 	public :
 	// CONSTRUCTORS
 		serverPoll();
