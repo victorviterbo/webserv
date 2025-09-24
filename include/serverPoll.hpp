@@ -6,7 +6,7 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 13:39:56 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/24 23:13:26 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <poll.h>
+#include <stdlib.h>
 
 class clientSocket;
 class serverSocket;

@@ -3,17 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
+/*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:44:51 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/23 16:43:49 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/24 23:40:13 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serverSocket.hpp"
 #include "clientSocket.hpp"
 #include "serverPoll.hpp"
+#include "Request.hpp"
 
+int	main(void)
+{
+	std::string	raw("POST /submit HTTP/1.1\r\nHost: localhost:8080\r\nContent-Length: 13\r\n\r\nname=Alice&age=5");
+	Request	test(raw);
+
+	std::cout << test << std::endl;
+}
+
+/*
 int main()
 {
 	serverSocket    servSocket;
@@ -40,3 +50,4 @@ int main()
 	}
 	return (0);
 }
+*/

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+         #
+#    By: ego <ego@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/10 14:31:08 by victorviter       #+#    #+#              #
-#    Updated: 2025/09/23 14:17:37 by victorviter      ###   ########.fr        #
+#    Updated: 2025/09/24 23:15:28 by ego              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,29 +16,28 @@ LDIR		=	lib/
 ODIR		=	objs/
 
 SRC			=	main.cpp
-SRC			+=	serverSocket.cpp serverPoll.cpp clientSocket.cpp
+SRC			+=	serverSocket.cpp serverPoll.cpp clientSocket.cpp Request.cpp
 
 OBJS		=	$(addprefix $(ODIR), $(SRC:.cpp=.o))
 SRCS		=	$(addprefix $(SDIR), $(SRC))
 
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98
 
 IFLAGS	=	-I $(IDIR)
 
 RM		=	rm -rf
 
-NAME	=	WebServ
+NAME	=	webserv
 
 all			:	$(NAME)
 
 bonus		:	$(NAME)
 
 $(NAME)		:	$(ODIR) $(OBJS)
-				echo $(OBJS)
 				$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
 				make -s header
-				printf "$(COLOR_G)[OK] WebServ is ready!$(C_RESET)\n" || \
+				printf "$(COLOR_G)[OK] $(NAME) is ready!$(C_RESET)\n" || \
 				printf "$(COLOR_R)[KO] Something went wrong.$(C_RESET)\n"
 
 $(ODIR)		:

@@ -6,7 +6,7 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 13:37:48 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/24 23:13:01 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <string.h>
+#include <cerrno>
 
 #include "clientSocket.hpp"
 
