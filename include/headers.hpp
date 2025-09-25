@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:15:31 by ego               #+#    #+#             */
-/*   Updated: 2025/09/25 14:33:39 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/25 14:54:31 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ enum Method
 
 typedef enum e_FileStatus
 {
-	FILE_X,
-	FILE_R,
-	FILE_W,
-	FILE_XR,
-	FILE_
+	FILE		= 1,	//0 0 0 0 0 0 0 1
+	FILE_R		= 3,	//0 0 0 0 0 0 1 1
+	FILE_W		= 5,	//0 0 0 0 0 1 0 1
+	FILE_RW		= 7,	//0 0 0 0 0 1 1 1
+	FILE_X		= 9,	//0 0 0 0 1 0 0 1
+	FILE_CGI	= 25,	//0 0 0 1 1 0 0 1
+	IS_DIR		= 33,	//0 0 1 0 0 0 0 1
+	PERM_ISSUE	= 65,	//0 1 0 0 0 0 0 1
+	EXISTS		= 255,	//1 1 1 1 1 1 1 1
 }	t_FileStatus;
