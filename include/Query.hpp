@@ -6,7 +6,7 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:19:23 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/25 14:28:08 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/25 15:08:08 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include <cstring>
 #include <string.h>
 #include <sys/stat.h>
-
-#define WEB_ROOTDIR "/Users/victorviterbo/Desktop/42/WebServ/"
 
 class Query {
 	public :
