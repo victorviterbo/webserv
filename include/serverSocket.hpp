@@ -6,23 +6,13 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:40:49 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 23:13:01 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:16:50 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <cstdio>
-#include <unistd.h>
-#include <cstring>
-#include <string.h>
-#include <cerrno>
-
+#include "headers.hpp"
 #include "clientSocket.hpp"
 
 //serverSocket contains all the variables and functions that pertains to socket handling

@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   clientSocket.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
+/*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:16:17 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 13:42:19 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/25 14:15:55 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <cstdio>
-#include <unistd.h>
-#include <cstring>
+#include "headers.hpp"
 
 class clientSocket {
 	public :

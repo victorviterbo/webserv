@@ -6,24 +6,15 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:25:15 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 23:13:26 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:16:37 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define ALL_FDS -1
-#define DEFAULT_EVENT -1
-#define NO_TIMEOUT -1
-#define SERVER_IDX 0
-
+#include "headers.hpp"
 #include "serverSocket.hpp"
 #include "clientSocket.hpp"
-
-#include <vector>
-#include <map>
-#include <poll.h>
-#include <stdlib.h>
 
 class clientSocket;
 class serverSocket;
