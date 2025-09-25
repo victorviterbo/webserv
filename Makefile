@@ -6,7 +6,7 @@
 #    By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/10 14:31:08 by victorviter       #+#    #+#              #
-#    Updated: 2025/09/25 15:26:26 by victorviter      ###   ########.fr        #
+#    Updated: 2025/09/25 18:07:31 by victorviter      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ ODIR		=	objs/
 
 SRC			=	main.cpp
 SRC			+=	serverSocket.cpp serverPoll.cpp clientSocket.cpp Request.cpp \
-				Query.cpp
+				Query.cpp utils.cpp
 
 OBJS		=	$(addprefix $(ODIR), $(SRC:.cpp=.o))
 SRCS		=	$(addprefix $(SDIR), $(SRC))

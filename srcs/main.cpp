@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:44:51 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/25 14:10:08 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:28:01 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "headers.hpp"
 #include "serverSocket.hpp"
 #include "clientSocket.hpp"
 #include "serverPoll.hpp"
