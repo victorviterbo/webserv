@@ -6,7 +6,7 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:44:51 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/24 23:40:13 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:10:08 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	main(void)
 {
-	std::string	raw("POST /submit HTTP/1.1\r\nHost: localhost:8080\r\nContent-Length: 13\r\n\r\nname=Alice&age=5");
+	std::string	raw("POST /submit HTTP/1.1\r\nHost: localhost:8080\r\nContent-Length: 16\r\n\r\nname=Alice&age=5");
 	Request	test(raw);
 
 	std::cout << test << std::endl;

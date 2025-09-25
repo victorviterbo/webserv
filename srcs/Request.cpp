@@ -6,7 +6,7 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:12:49 by ego               #+#    #+#             */
-/*   Updated: 2025/09/24 23:36:27 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:09:09 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,25 @@ Request::Request(const std::string &raw)
 	std::istringstream	stream(raw);
 	std::string			line;
 
+	_error = NONE;
 	if (std::getline(stream, line))
 	{
 		std::istringstream	firstLine(line);
 		std::string			methodStr;
 
-		firstLine >> methodStr >> _requestTarget >> _version;
+		if (!(firstLine >> methodStr >> _requestTarget >> _version))
+		{
+			_error = INVALID_REQUEST_LINE;
+			return ;
+		}
 		if (methodStr == "GET") _method = GET;
 		else if (methodStr == "POST") _method = POST;
-		else if (methodStr == "DELETE") _method = DELETE;
-		else _method = ERR;
+		else _method = DELETE;
+	}
+	else
+	{
+		_error = INVALID_REQUEST_LINE;
+		return ;
 	}
 
 	while (std::getline(stream, line) && line != "\r")
@@ -45,13 +54,29 @@ Request::Request(const std::string &raw)
 		{
 			std::string	key = line.substr(0, pos);
 			std::string	value = line.substr(pos + 1);
+			if (!value.empty() && value[0] == ' ')
+				value.erase(0, 1);
+			if (!value.empty() && value[value.size() - 1] == '\r')
+				value.erase(value.size() - 1);
 			_headers[key] = value;
+		}
+		else
+		{
+			_error = INVALID_HEADER;
+			return ;
 		}
 	}
 
 	std::ostringstream	bodyStream;
 	bodyStream << stream.rdbuf();
 	_rawBody = bodyStream.str();
+	if (_headers.count("Content-Length"))
+	{
+		size_t	expected = std::atoi(_headers["Content-Length"].c_str());
+		if (_rawBody.size() != expected)
+			_error = BAD_CONTENT_LENGTH;
+	}
+	return ;
 }
 
 Request &Request::operator=(const Request &other)
@@ -69,7 +94,7 @@ Request &Request::operator=(const Request &other)
 
 Request::~Request(void) {}
 
-methodType	Request::getMethod(void) const
+Method	Request::getMethod(void) const
 {
 	return (_method);
 }
@@ -94,16 +119,25 @@ std::map<std::string, std::string>	Request::getHeaders(void) const
 	return (_headers);
 }
 
+Request::ParseError	Request::getError(void) const
+{
+	return (_error);
+}
+
 std::ostream	&operator<<(std::ostream &os, const Request &src)
 {
-	methodType									method = src.getMethod();
+	Method										method = src.getMethod();
 	const std::map<std::string, std::string>	&headers = src.getHeaders();
 	std::string									methodStr;
 
+	if (src.getError() != Request::NONE)
+	{
+		os << "Parse error detected: " << src.getError() << std::endl;
+		return (os);
+	}
 	if (method == GET) methodStr = "GET";
 	else if (method == POST) methodStr = "POST";
-	else if (method == DELETE) methodStr = "DELETE";
-	else methodStr = "Unknown";
+	else methodStr = "DELETE";
 
 	os << "Method:\t\t" << methodStr << std::endl
 		<< "Target:\t\t" << src.getRequestTarget() << std::endl

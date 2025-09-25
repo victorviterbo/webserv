@@ -6,7 +6,7 @@
 /*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:12:40 by ego               #+#    #+#             */
-/*   Updated: 2025/09/24 23:24:41 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:05:19 by ego              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <stdlib.h>
 
-enum methodType
+enum Method
 {
 	GET,
 	POST,
-	DELETE,
-	ERR
+	DELETE
 };
 
 class Request
@@ -36,18 +36,30 @@ class Request
 		Request	&operator=(const Request &other);
 		~Request(void);
 
-		methodType							getMethod(void) const;
+		enum ParseError
+		{
+			NONE,
+			UNSUPPORTED_METHOD,
+			INVALID_REQUEST_LINE,
+			INVALID_HEADER,
+			BAD_CONTENT_LENGTH
+		};
+
+		Method								getMethod(void) const;
 		std::string							getRequestTarget(void) const;
 		std::string							getVersion(void) const;
 		std::string							getRawBody(void) const;
 		std::map<std::string, std::string>	getHeaders(void) const;
+		ParseError							getError(void) const;
+
 
 	private:
-		methodType							_method;
+		Method								_method;
 		std::string							_requestTarget;
 		std::string							_version;
 		std::string							_rawBody;
 		std::map<std::string, std::string>	_headers;
+		ParseError							_error;
 };
 
 std::ostream	&operator<<(std::ostream &os, const Request &src);
