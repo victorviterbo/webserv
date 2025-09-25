@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ego <ego@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:15:31 by ego               #+#    #+#             */
-/*   Updated: 2025/09/25 14:25:01 by ego              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:33:39 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,12 @@ enum Method
 	POST,
 	DELETE
 };
+
+typedef enum e_FileStatus
+{
+	FILE_X,
+	FILE_R,
+	FILE_W,
+	FILE_XR,
+	FILE_
+}	t_FileStatus;
