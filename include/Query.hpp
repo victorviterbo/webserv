@@ -6,14 +6,14 @@
 /*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:19:23 by victorviter       #+#    #+#             */
-/*   Updated: 2025/09/25 15:08:08 by victorviter      ###   ########.fr       */
+/*   Updated: 2025/09/25 15:26:42 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "Query.hpp"
-#include "Resquest.hpp"
+#include "Request.hpp"
 #include <cstring>
 #include <string.h>
 #include <sys/stat.h>
@@ -38,12 +38,12 @@ class Query {
 		int		setRessourceStatus();
 		int		queryCGIRun();
 	private :
-    	typedef void (Query::*MemberFunc)();
+		typedef void (Query::*MemberFunc)();
 		static const queryMethod _queryExecute[METHOD_COUNT];
 		parser					_query;
 		int						_err_code;
 		std::string				_ressource;
-		int						_ressource_status;
+		eFileStatus				_ressource_status;
 		bool					_cgi_request;
 };
 
